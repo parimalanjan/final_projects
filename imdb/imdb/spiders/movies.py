@@ -12,7 +12,7 @@ class MoviesSpider(CrawlSpider):
     user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
 
     def start_requests(self):
-        yield scrapy.Request(url='https://www.imdb.com/search/title/?title_type=feature&release_date=1921-01-01,1945-12-31',
+        yield scrapy.Request(url='https://www.imdb.com/search/title/?title_type=feature&release_date=2022-01-01,2022-12-31',
                             headers={'User-Agent':self.user_agent})
 
     rules = (
@@ -44,7 +44,7 @@ class MoviesSpider(CrawlSpider):
             'user_reviews':response.xpath('//span[@class="score"][1]/text()').get(),
             'critic_reviews':response.xpath('//span[@class="score"][2]/text()').get(),
             'meta_score':response.xpath('//span[@class="score"][3]/text()').get(),
-            'url':response.url
+            'imdb_rating':response.xpath("//span[@class='sc-7ab21ed2-1 jGRxWM']/text()").get()
 
         }
         
